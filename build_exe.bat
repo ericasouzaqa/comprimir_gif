@@ -3,7 +3,7 @@ setlocal
 
 echo.
 echo =============================================
-echo       Criando Comprimir GIF.exe
+echo       Criando Comprimir GIF
 echo =============================================
 echo.
 
@@ -31,13 +31,17 @@ if not exist "LICENSES" (
     exit /b 1
 )
 
+echo.
+echo Instalando dependencias...
 python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
 
+echo.
+echo Criando aplicativo...
 python -m PyInstaller ^
   --noconfirm ^
   --clean ^
-  --onefile ^
+  --onedir ^
   --windowed ^
   --name "Comprimir GIF" ^
   --icon "assets\comprimir-gif.ico" ^
@@ -48,9 +52,16 @@ python -m PyInstaller ^
   app.py
 
 echo.
+echo Criando ZIP para distribuicao...
+powershell -NoProfile -Command "Compress-Archive -Path '.\dist\Comprimir GIF\*' -DestinationPath '.\dist\Comprimir-GIF-v1.0.1.zip' -Force"
+
+echo.
 echo =============================================
-echo Executavel pronto:
-echo dist\Comprimir GIF.exe
+echo Aplicativo criado:
+echo dist\Comprimir GIF\Comprimir GIF.exe
+echo.
+echo Arquivo para publicar:
+echo dist\Comprimir-GIF-v1.0.1.zip
 echo =============================================
 echo.
 pause
