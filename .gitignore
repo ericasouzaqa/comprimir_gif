@@ -28,3 +28,6 @@ tools/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Instalador gerado
+installer-output/
